@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const cloudinaryUpload = require('./src/vue-cloudinary-management')
+const history = require('connect-history-api-fallback');
 
 const app = express()
 const cloudName = 'rzntattoo'
@@ -10,6 +11,7 @@ const masters = [{name: 'Швед', folder: 'shwed'}]
 
 app.use(express.json())
 app.use(cors())
+app.use(history())
 
 app.use(cloudinaryUpload(cloudName, apiKey, apiSecret))
 
