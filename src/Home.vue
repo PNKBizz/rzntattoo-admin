@@ -36,13 +36,11 @@
 <script>
 import {db} from './firebase';
 
-const DEFAULT_FOLDER = 'shwed'
-
 export default {
   name: 'app',
   data () {
     return {
-      folder: DEFAULT_FOLDER,
+      folder: '',
       masters: [],
       newMaster: {
         name: '',
@@ -56,11 +54,17 @@ export default {
   },
   methods: {
     setMaster() {
-      this.$firebaseRefs.masters.push(this.newMaster)
+      this.$firebaseRefs.masters.push(this.newMaster);
+      this.showModal = false;
     },
     deleteMaster(key) {
       this.$firebaseRefs.masters.child(key).remove()
         .then(() => this.folder = DEFAULT_FOLDER)
+    }
+  },
+  watch: {
+    masters() {
+      this.folder = this.masters[0].folder;
     }
   }
 }
@@ -74,6 +78,7 @@ export default {
 .menu {
   flex-basis: 300px;
   background-color: #DDD;
+  flex-shrink: 0;
 
   &-list {
     list-style: none;
