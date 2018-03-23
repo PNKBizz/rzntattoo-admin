@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     masters() {
-      this.folder = this.masters[0].folder;
+      this.folder = this.masters[0] && this.masters[0].folder;
     }
   }
 }
